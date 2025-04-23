@@ -6,7 +6,7 @@ import { useState } from "react";
 // Import the autoAnimate hook
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 import Noise from '../components/ui/noise';
-import { link } from "fs";
+
 
 const projects = [
   {
