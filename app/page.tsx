@@ -29,7 +29,7 @@ const projects = [
     image: "/sacramento-library.png",
     logo: "📚",
     category: "Desktop",
-       link: "https://purrfectchoys.vercel.app/"
+       link: "https://github.com/mcggEz/library-management-system"
   },
   {
     title: "Synaps",
@@ -40,7 +40,7 @@ const projects = [
     image: "/synaps.png",
     logo: "⚙️",
     category: "Web",
-       link: "https://purrfectchoys.vercel.app/"
+       link: "https://synaps-ai.vercel.app/"
   },
   {
     title: "FlipFinds",
