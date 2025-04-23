@@ -56,15 +56,15 @@ const projects = [
 ];
 
 const skills = [
-  { name: "HTML", icon: "/html5.svg", color: "bg-orange-500" },
-  { name: "CSS", icon: "/css3.svg", color: "bg-blue-500" },
-  { name: "JavaScript", icon: "/js.svg", color: "bg-yellow-400" },
-  { name: "TypeScript", icon: "/typescript.svg", color: "bg-blue-600" },
-  { name: "React", icon: "/react.svg", color: "bg-sky-400" },
-  { name: "Node.js", icon: "/nodejs.svg", color: "bg-green-500" },
-  { name: "Next.js", icon: "/nextjs.svg", color: "bg-zinc-700" },
-  { name: "Firebase", icon: "/firebase.svg", color: "bg-amber-500" },
-  { name: "Python", icon: "/python.svg", color: "bg-blue-800" },
+  { name: "HTML", icon: "html5", color: "bg-orange-500" },
+  { name: "CSS", icon: "css3", color: "bg-blue-500" },
+  { name: "JavaScript", icon: "javascript",color: "bg-[#edda4e]" },
+  { name: "TypeScript", icon: "typescript", color: "bg-blue-600" },
+  { name: "React", icon: "react", color: "bg-sky-400" },
+  { name: "Node.js", icon: "nodejs", color: "bg-green-500" },
+  { name: "Next.js", icon: "nextjs", color: "bg-black" },
+  { name: "Firebase", icon: "firebase", color: "bg-amber-500" },
+  { name: "Python", icon: "python", color: "bg-blue-800" },
 ];
 
 // Social links
@@ -189,9 +189,14 @@ export default function Home() {
           <div className="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-9 gap-6 justify-items-center" ref={skillsParent}>
             {skills.map((skill, index) => (
               <div key={index} className="flex flex-col items-center">
-                <div className={`w-16 h-16 ${skill.color} rounded-xl flex items-center justify-center mb-2`}>
-                  {skill.name.charAt(0)}
+               <div className={`w-16 h-16 ${skill.color} rounded-xl flex items-center justify-center mb-2`}>
+               <img
+            src={`https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${skill.icon}/${skill.icon}-original.svg`}
+            alt={skill.name}
+            className="w-10 h-10"
+          />
                 </div>
+
                 <span className="text-sm text-zinc-400">{skill.name}</span>
               </div>
             ))}
