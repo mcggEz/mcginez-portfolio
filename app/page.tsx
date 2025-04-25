@@ -10,17 +10,6 @@ import Noise from '../components/ui/noise';
 
 const projects = [
   {
-    title: "Purrfect Choys Report Management System",
-    description: "A comprehensive report management system designed for Purrfect Choys Store. This project streamlines data reporting and visualization using React and TailwindCSS, ensuring an intuitive user experience.",
-    role: "Fullstack Developer",
-    time: "October 2024 - December 2024",
-    technologies: ["React", "TailwindCSS", "JavaScript"],
-    image: "/pchoys.png",
-    logo: "🐾",
-    category: "Web",
-    link: "https://purrfectchoys.vercel.app/"
-  },
-  {
     title: "Sacramento Library Management System",
     description: "A robust library management system created for Sacramento Library. Features include book cataloging, user management, and transaction tracking, built with Flutter, Express, and MongoDB.",
     role: "Fullstack Developer",
@@ -31,6 +20,18 @@ const projects = [
     category: "Desktop",
        link: "https://github.com/mcggEz/library-management-system"
   },
+  {
+    title: "Purrfect Choys Report Management System",
+    description: "A comprehensive report management system designed for Purrfect Choys Store. This project streamlines data reporting and visualization using React and TailwindCSS, ensuring an intuitive user experience.",
+    role: "Fullstack Developer",
+    time: "October 2024 - December 2024",
+    technologies: ["React", "TailwindCSS", "JavaScript"],
+    image: "/pchoys.png",
+    logo: "🐾",
+    category: "Web",
+    link: "https://purrfectchoys.vercel.app/"
+  },
+
   {
     title: "Synaps",
     description: "A powerful web application enabling agentic workflows through intelligent automation and modular task orchestration.",
@@ -56,15 +57,36 @@ const projects = [
 ];
 
 const skills = [
-  { name: "HTML", icon: "html5", color: "bg-orange-500" },
-  { name: "CSS", icon: "css3", color: "bg-blue-500" },
-  { name: "JavaScript", icon: "javascript",color: "bg-[#edda4e]" },
-  { name: "TypeScript", icon: "typescript", color: "bg-blue-600" },
-  { name: "React", icon: "react", color: "bg-sky-400" },
-  { name: "Node.js", icon: "nodejs", color: "bg-green-500" },
-  { name: "Next.js", icon: "nextjs", color: "bg-black" },
-  { name: "Firebase", icon: "firebase", color: "bg-amber-500" },
-  { name: "Python", icon: "python", color: "bg-blue-800" },
+
+    { name: "HTML", icon: "html5", color: "bg-orange-500" },
+    { name: "CSS", icon: "css3", color: "bg-blue-500" },
+    { name: "JavaScript", icon: "javascript", color: "bg-[#edda4e]" },
+    { name: "TypeScript", icon: "typescript", color: "bg-blue-600" },
+    { name: "Node.js", icon: "nodejs", color: "bg-green-500" },
+    { name: "React", icon: "react", color: "bg-sky-400" },
+    { name: "Next.js", icon: "nextjs", color: "bg-black" },
+
+    { name: "Firebase", icon: "firebase", color: "bg-amber-500" },
+    { name: "Supabase", icon: "supabase", color: "bg-green-600" },
+
+    { name: "Python", icon: "python", color: "bg-blue-800" },
+    { name: "Tailwind CSS", icon: "tailwindcss", color: "bg-cyan-500" },
+    { name: "Git", icon: "git", color: "bg-red-600" },
+    { name: "GitHub", icon: "github", color: "bg-gray-800" },
+    { name: "MongoDB", icon: "mongodb", color: "bg-green-600" },
+    { name: "Express.js", icon: "express", color: "bg-gray-700" },
+    { name: "PostgreSQL", icon: "postgresql", color: "bg-blue-700" },
+    { name: "Docker", icon: "docker", color: "bg-blue-400" },
+    { name: "Java", icon: "java", color: "bg-red-500" },
+
+    { name: "Figma", icon: "figma", color: "bg-pink-500" },
+    
+    { name: "Spring Boot", icon: "spring", color: "bg-green-600" },
+   
+
+  
+   
+  
 ];
 
 // Social links
@@ -125,11 +147,12 @@ export default function Home() {
       <section className="relative px-6 py-32 flex flex-col items-center justify-center min-h-screen border-b border-zinc-800">
         <div className="absolute right-0 top-10 opacity-10 z-0">
           <div className="grid grid-cols-3 gap-6">
-            {skills.map((skill, i) => (
-              <div key={i} className={`w-16 h-16 rounded-full ${skill.color} flex items-center justify-center opacity-60`}>
-                {skill.name.charAt(0)}
-              </div>
-            ))}
+          {skills.slice(0, 9).map((skill, i) => (
+  <div key={i} className={`w-16 h-16 rounded-full ${skill.color} flex items-center justify-center opacity-60`}>
+    {skill.name.charAt(0)}
+  </div>
+))}
+
           </div>
         </div>
         
