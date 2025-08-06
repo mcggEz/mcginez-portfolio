@@ -2,11 +2,12 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import Image from "next/image";
 
 // Import the autoAnimate hook
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 import Noise from '../components/ui/noise';
-
+import LightRays from './LightRays/LightRays';
 
 const projects = [
   {
@@ -16,9 +17,9 @@ const projects = [
     time: "January 2025 - March 2025",
     technologies: ["JavaFX", "SQLite"],
     image: "/sacramento-library.png",
-    logo: "📚",
+    logo: "/slms-logo.png",
     category: "Desktop",
-       link: "https://github.com/mcggEz/library-management-system"
+    link: "https://github.com/mcggEz/library-management-system"
   },
   {
     title: "Purrfect Choys Report Management System",
@@ -27,11 +28,10 @@ const projects = [
     time: "October 2024 - December 2024",
     technologies: ["React", "TailwindCSS", "JavaScript"],
     image: "/pchoys.png",
-    logo: "🐾",
+    logo: "/pchoys-logo.png",
     category: "Web",
     link: "https://purrfectchoys.vercel.app/"
   },
-
   {
     title: "Synaps",
     description: "A powerful web application enabling agentic workflows through intelligent automation and modular task orchestration.",
@@ -39,21 +39,44 @@ const projects = [
     time: "October 2025 - December 2025",
     technologies: ["Next.js", "React", "TypeScript", "LangChain", "Supabase"],
     image: "/synaps.png",
-    logo: "⚙️",
+    logo: "/synaps-logo.png",
     category: "Web",
-       link: "https://synaps-ai.vercel.app/"
+    link: "https://synaps-ai.vercel.app/"
   },
   {
-    title: "FlipFinds",
+    title: "Flip",
     description: "A thrift buying app with a unique UI style.",
     role: "Fullstack Developer",
     time: "February 2025 - April 2025",
     technologies: ["React Native", "Java SpringBoot", "PostgreSQL"],
     image: "/flipfinds.png",
-    logo: "🛍️",
+    logo: "/flipfinds-logo.png",
     category: "Mobile",
-       link: "https://purrfectchoys.vercel.app/"
+    link: "https://purrfectchoys.vercel.app/"
   },
+  {
+    title: "SK Council Web Page",
+    description: "Web page for Sangguniang Kabataan of Barangay 828 Paco, Manila ",
+    role: "Fullstack Developer",
+    time: "February 2025 - April 2025",
+    technologies: ["Next Js", "Tailwindcss","Shadcn"],
+    image: "/sk-logo.png",
+    logo: "/sk-logo.png",
+    category: "Mobile",
+    link: "https://purrfectchoys.vercel.app/"
+  },
+  {
+    title: "TradingAI",
+    description: "Web scraper for stock market data, integrated with a machine learning model for predictive analysis.",
+    role: "Fullstack Developer",
+    time: "February 2025 - April 2025",
+    technologies: ["Next Js", "Tailwindcss","Shadcn"],
+    image: "/sk-logo.png",
+    logo: "/sk-logo.png",
+    category: "Mobile",
+    link: "https://purrfectchoys.vercel.app/"
+  },
+
 ];
 
 const skills = [
@@ -114,8 +137,12 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-[#0d0d0d] text-white overflow-hidden relative">
-      {/* Noise Effect */}
-      <div className="fixed inset-0 z-0 pointer-events-none">
+      {/* Background Layers */}
+      <div className="absolute inset-0 z-0">
+        <LightRays className="w-full h-full" />
+      </div>
+      
+      <div className="fixed inset-0 z-1 pointer-events-none">
         <Noise
           patternSize={250}
           patternScaleX={1}
@@ -124,6 +151,9 @@ export default function Home() {
           patternAlpha={15}
         />
       </div>
+
+      {/* Main Content */}
+      <div className="relative z-10">
       
       {/* Header with social links */}
       <header className="fixed top-0 w-full z-50 py-4 px-6 flex justify-between items-center bg-black/0 backdrop-blur-sm">
@@ -250,35 +280,79 @@ export default function Home() {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8" ref={projectsParent}>
-            {filteredProjects.map((project) => (
-              <div key={project.title} className="bg-[#1a1a1a] rounded-xl overflow-hidden group hover:bg-zinc-800 transition-all">
-                <div className="p-8">
-                  <div className="flex justify-between items-start mb-4">
-                    <h3 className="text-xl font-bold">{project.title}</h3>
-                    <span className="text-3xl">{project.logo}</span>
-                  </div>
-                  <p className="text-zinc-400 text-sm mb-4">{project.description}</p>
-                  <div className="mb-4">
-                    <p className="text-zinc-500 text-sm mb-1">Role: <span className="text-zinc-300">{project.role}</span></p>
-                    <p className="text-zinc-500 text-sm">Time: <span className="text-zinc-300">{project.time}</span></p>
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    {project.technologies.map((tech, techIndex) => (
-                      <span key={techIndex} className="px-3 py-1 bg-zinc-800 group-hover:bg-zinc-700 text-xs text-zinc-300 rounded-full transition-colors">
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                  <div>
-                    <Link href={project.link} className="mt-4 inline-block text-sm text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer">
-                      View Project  
-                      <svg xmlns="http://www.w3.org/2000/svg" className="inline-block w-4 h-4 ml-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2l9 9-9 9-9-9z"></path></svg>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            ))}
+      {filteredProjects.map((project) => (
+        <div
+          key={project.title}
+          className="bg-[#1a1a1a] rounded-xl overflow-hidden group hover:bg-zinc-800 transition-all"
+        >
+          <div className="p-8">
+            {/* Title and Logo */}
+            <div className="flex items-center justify-between mb-6">
+  <h3 className="text-2xl font-semibold text-white leading-snug">
+    {project.title}
+  </h3>
+  <div className="w-12 h-12 relative">
+    <Image
+      src={project.logo}
+      alt={`${project.title} logo`}
+      fill
+      className="object-contain"
+    />
+  </div>
+</div>
+
+            {/* Description */}
+            <p className="text-zinc-400 text-sm mb-4">{project.description}</p>
+
+            {/* Role and Time */}
+            <div className="mb-4">
+              <p className="text-zinc-500 text-sm mb-1">
+                Role: <span className="text-zinc-300">{project.role}</span>
+              </p>
+              <p className="text-zinc-500 text-sm">
+                Time: <span className="text-zinc-300">{project.time}</span>
+              </p>
+            </div>
+
+            {/* Technologies */}
+            <div className="flex flex-wrap gap-2 mb-4">
+              {project.technologies.map((tech, techIndex) => (
+                <span
+                  key={techIndex}
+                  className="px-3 py-1 bg-zinc-800 group-hover:bg-zinc-700 text-xs text-zinc-300 rounded-full transition-colors"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+
+            {/* Link */}
+            <div>
+              <Link
+                href={project.link}
+                className="mt-4 inline-block text-sm text-blue-400 hover:underline"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View Project
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="inline-block w-4 h-4 ml-1"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M12 2l9 9-9 9-9-9z"></path>
+                </svg>
+              </Link>
+            </div>
           </div>
+        </div>
+      ))}
+    </div>
           
           {filteredProjects.length === 0 && (
             <div className="text-center py-10">
@@ -325,6 +399,9 @@ export default function Home() {
           </div>
         </div>
       </footer>
+      </div>
+      {/* Noise Effect */}
+   
     </main>
   );
 }
