@@ -4,7 +4,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { 
   Github, 
   Mail, 
-  Linkedin, 
   ArrowUpRight, 
   Cpu, 
   Cloud, 
@@ -541,7 +540,7 @@ const Portfolio = () => {
           
           <Reveal>
             <h2 className="text-5xl md:text-8xl font-bold tracking-tighter mb-12">
-              LET'S BUILD <br /> 
+              LET&apos;S BUILD <br /> 
               <span className="opacity-40">THE IMPOSSIBLE.</span>
             </h2>
             
