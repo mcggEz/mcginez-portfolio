@@ -1,22 +1,13 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from 'react';
-import { 
-  Github, 
-  Mail, 
-  ArrowUpRight, 
-  Cpu, 
-  Cloud, 
-  Smartphone, 
-  Code2, 
-  Menu, 
-  X, 
-  Terminal,
+import {
+  Github,
+  Linkedin,
+  Mail,
+  ArrowUpRight,
   Globe,
-  Moon,
-  Sun,
-  Palette,
-  Check
+  MapPin
 } from 'lucide-react';
 
 /**
@@ -27,9 +18,15 @@ const useScrollReveal = () => {
   const domRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => setIsVisible(entry.isIntersecting));
-    });
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => setIsVisible(entry.isIntersecting));
+      },
+      {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      }
+    );
     const currentElement = domRef.current;
     if (currentElement) observer.observe(currentElement);
     return () => {
@@ -55,79 +52,22 @@ const Reveal = ({ children, className = "" }: { children: React.ReactNode; class
 };
 
 const Portfolio = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isThemeMenuOpen, setIsThemeMenuOpen] = useState(false);
-  const [theme, setTheme] = useState('dark');
-  const [activeTheme, setActiveTheme] = useState('monotone');
+  // Fixed dark mode
+  const theme = 'dark';
 
-  // Toggle Theme (Dark/Light)
-  const toggleTheme = () => {
-    setTheme(prev => prev === 'dark' ? 'light' : 'dark');
+  // Fixed Ocean theme
+  const currentTheme = {
+    name: "Ocean",
+    textAccent: "text-cyan-600 dark:text-cyan-400",
+    bgAccent: "bg-cyan-600 dark:bg-cyan-500",
+    borderAccent: "border-cyan-600 dark:border-cyan-500",
+    gradient: "from-cyan-500 to-blue-400",
+    buttonText: "text-white dark:text-black"
   };
 
-  // Smooth scroll
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      setIsMenuOpen(false);
-    }
-  };
-
-  // Theme Configurations
-  const themes = {
-    monotone: {
-      name: "Monotone",
-      base: "zinc",
-      accent: "zinc",
-      textAccent: "text-zinc-900 dark:text-white",
-      bgAccent: "bg-zinc-900 dark:bg-white",
-      borderAccent: "border-zinc-900 dark:border-white",
-      gradient: "from-zinc-500 to-zinc-300",
-      buttonText: "text-white dark:text-black"
-    },
-    forest: {
-      name: "Forest",
-      base: "slate",
-      accent: "emerald",
-      textAccent: "text-emerald-600 dark:text-emerald-400",
-      bgAccent: "bg-emerald-600 dark:bg-emerald-500",
-      borderAccent: "border-emerald-600 dark:border-emerald-500",
-      gradient: "from-emerald-500 to-teal-400",
-      buttonText: "text-white"
-    },
-    nebula: {
-      name: "Nebula",
-      base: "neutral",
-      accent: "violet",
-      textAccent: "text-violet-600 dark:text-violet-400",
-      bgAccent: "bg-violet-600 dark:bg-violet-500",
-      borderAccent: "border-violet-600 dark:border-violet-500",
-      gradient: "from-violet-500 to-fuchsia-400",
-      buttonText: "text-white"
-    },
-    ocean: {
-      name: "Ocean",
-      base: "slate",
-      accent: "cyan",
-      textAccent: "text-cyan-600 dark:text-cyan-400",
-      bgAccent: "bg-cyan-600 dark:bg-cyan-500",
-      borderAccent: "border-cyan-600 dark:border-cyan-500",
-      gradient: "from-cyan-500 to-blue-400",
-      buttonText: "text-white dark:text-black"
-    }
-  };
-
-  const currentTheme = themes[activeTheme as keyof typeof themes];
-
-  // Helper to construct dynamic classes
-  const getBaseBg = () => {
-    if (activeTheme === 'monotone') return "bg-zinc-50 dark:bg-[#0a0a0a] text-zinc-900 dark:text-zinc-100 selection:bg-zinc-900 selection:text-white dark:selection:bg-white dark:selection:text-black";
-    if (activeTheme === 'forest') return "bg-slate-50 dark:bg-[#0a1116] text-slate-900 dark:text-slate-100 selection:bg-emerald-500 selection:text-white";
-    if (activeTheme === 'nebula') return "bg-neutral-50 dark:bg-[#0a0a0a] text-neutral-900 dark:text-neutral-100 selection:bg-violet-500 selection:text-white";
-    if (activeTheme === 'ocean') return "bg-slate-50 dark:bg-[#0b1120] text-slate-900 dark:text-slate-100 selection:bg-cyan-500 selection:text-black";
-    return "bg-zinc-50 dark:bg-[#0a0a0a] text-zinc-900 dark:text-zinc-100 selection:bg-zinc-900 selection:text-white dark:selection:bg-white dark:selection:text-black";
-  };
+  // Base background (Ocean)
+  const getBaseBg = () =>
+    "bg-slate-50 dark:bg-[#0b1120] text-slate-900 dark:text-slate-100 selection:bg-cyan-500 selection:text-black";
 
   // Portfolio Data
   const data = {
@@ -136,7 +76,7 @@ const Portfolio = () => {
     location: "Manila, PH",
     email: "mcgiber.179@gmail.com",
     github: "https://github.com/mcggEz",
-    linkedin: "https://www.linkedin.com/in/mcgiberri-ginez", 
+    linkedin: "https://www.linkedin.com/in/mcginez",
     
     // Marquee Skills
     techStack: [
@@ -149,91 +89,121 @@ const Portfolio = () => {
 
     projects: [
       {
-        title: "Kippap Learning Portal",
-        category: "Web • EdTech",
-        desc: "Reviewing for the Civil Engineering Board Exam is made much easier and more convenient with Kippap's high quality and repeatable lecture videos.",
-        tech: ["Laravel", "SQL", "TDD"],
-        link: "https://portal.kippap.com",
-      },
-      {
-        title: "Kippap Mobile App",
-        category: "Mobile • EdTech",
-        desc: "Official mobile application for Kippap Learning Corp, featuring course management and discussion forums.",
-        tech: ["Flutter", "Figma"],
-        link: "#",
-      },
-      {
-        title: "Sacramento Library System",
-        category: "Desktop • Electron",
-        desc: "Cross-platform desktop application built with Electron.js to modernize traditional library operations, improving efficiency in managing library resources.",
-        tech: ["Electron.js", "React", "Desktop"],
-        link: "#",
-      },
-      {
-        title: "Iwas Huli",
-        category: "Web • Navigation",
-        desc: "Navigate Manila's Roads with Confidence. Get real-time alerts about traffic violation hotspots and stay informed to avoid fines.",
-        tech: ["Next.js", "React"],
-        link: "https://iwas-huli-ph.vercel.app",
-      },
-      {
         title: "MicroView AI",
         category: "Thesis • AI & IoT",
-        desc: "Automated microscopy urinalysis system using YOLOv11 and Gemini 2.5 Pro VLM for explainable medical analysis.",
-        tech: ["Next.js", "Python", "Raspberry Pi", "Gemini VLM"],
-        link: "https://github.com/mcggEz/microview-ai",
+        desc: "Low-cost automated microscopy urinalysis system. An Arduino stage and Raspberry Pi client feed a cascading cloud pipeline — YOLOv11 for coarse detection and Gemini 2.5 Pro (VLM) for explainable fine-grained analysis, surfaced in a Next.js dashboard.",
+        tech: ["Next.js", "Flask", "YOLOv11", "Gemini 2.5 Pro", "Raspberry Pi"],
+        link: "https://microview-ai.vercel.app/",
+        image: "/shots/microview.png",
+        featured: true,
+      },
+      {
+        title: "Department of Energy GSMS",
+        category: "Web • GovTech",
+        desc: "Government Services Management System architected for the Department of Energy (DOE) with Next.js and NestJS — digitizing critical agency operations to cut manual processing time, with 20+ high-fidelity screens on a production-ready AWS environment.",
+        tech: ["Next.js", "NestJS", "AWS", "PostgreSQL"],
+        link: "https://quanbyit.com/",
+        image: "/logos/gsms-bg.png",
+      },
+      {
+        title: "ChainReaction",
+        category: "Web • FoodTech",
+        desc: "Full-stack food-rating platform ranking 67+ menu items across 9 restaurant chains. Shipped 145 features across 14 domains to 100% completion before MVP launch, with multi-provider auth (Email, Google, Apple) and end-to-end Playwright QA.",
+        tech: ["Next.js", "Supabase", "Vercel", "Playwright"],
+        link: "https://www.chainreactionhq.com/",
+        image: "/shots/chainreaction.png",
+        featured: true,
       },
       {
         title: "SK Council Website",
         category: "Web • Public Service",
-        desc: "Official digital platform for Barangay 828 Sangguniang Kabataan. Core features like the digital grievance system were adapted from my 'Sigla' hackathon project to enhance transparency.",
-        tech: ["Next.js", "Tailwind", "Gemini"],
-        link: "#",
+        desc: "Official digital platform for the Sangguniang Kabataan of Barangay 828, Paco, Manila — centralizing announcements and events with a Gemini-powered chatbot.",
+        tech: ["Next.js", "Tailwind", "Gemini API"],
+        link: "https://barangay-828-website.vercel.app",
+        image: "/shots/sk-828.png",
       },
       {
-        title: "Synaps",
-        category: "Productivity • AI Agent",
-        desc: "Smart assistant leveraging Gemini API to generate tasks, manage projects, and act as a second brain.",
-        tech: ["Next.js", "Supabase", "Gemini API"],
-        link: "https://github.com/mcggEz/synaps",
+        title: "Kippap Learning",
+        category: "Web • EdTech",
+        desc: "EdTech platform for Civil Engineering board-exam review — structured, repeatable lecture videos and a full student portal. Contributed across the full stack (Laravel portal, Angular/Express AI dashboard, and the Flutter mobile app) during my internship at Kippap Learning Corp.",
+        tech: ["Laravel", "Angular", "Flutter"],
+        link: "https://www.kippap.com/",
+        image: "/shots/kippap.png",
+        featured: true,
       },
       {
-        title: "PLM Navigation",
-        category: "Utility • Campus Map",
-        desc: "Interactive campus wayfinding app for students and visitors of Pamantasan ng Lungsod ng Maynila.",
-        tech: ["ReactJS", "Leaflet", "GeoJSON"],
-        link: "https://github.com/mcggEz/plm",
+        title: "Sacramento Library System",
+        category: "Desktop • Operations",
+        desc: "Electron.js + SQLite desktop app that replaced manual logging for a library — tracking borrowed and returned books, managing inventory and member records, and automating overdue tracking.",
+        tech: ["Electron.js", "SQLite", "JavaScript"],
+        link: "https://github.com/mcggEz/sacramento-library-management-system-desktop",
+        image: "/logos/slms-bg.png",
       },
       {
-        title: "Smart Cradle",
-        category: "IoT • Mobile App",
-        desc: "Bluetooth-enabled mobile app interfacing with an Arduino IoT cradle system for automated infant rocking.",
-        tech: ["React Native", "Arduino", "Bluetooth"],
-        link: "https://github.com/mcggEz/smart-cradle-app",
+        title: "CyMon",
+        category: "Web • HealthTech",
+        desc: "Clinical information system for a Special Education program — consolidating patient profiles, developmental assessments, daily activity logs, and consent/waiver management across four roles (clients, psychologists, psychometricians, admins), with Supabase row-level security.",
+        tech: ["React", "Express", "Supabase", "PostgreSQL"],
+        link: "https://cymon-clinic.vercel.app/",
+        image: "/logos/cymon.png",
+        featured: true,
       }
     ],
 
     experience: [
       {
-        company: "Kippap Learning Corp",
+        company: "Godelian Ltd",
+        logo: "/logos/godelian.svg",
+        link: "https://www.godelianlimited.com/",
+        role: "Software Engineering Consultant",
+        location: "London, United Kingdom · Remote",
+        period: "Mar 2026 — Apr 2026",
+        desc: "Built ChainReaction, a full-stack food-rating platform spanning 67+ menu items across 9 restaurant chains — shipping 145 features across 14 domains and reaching 100% feature completion before MVP launch. Implemented multi-provider auth (Email, Google, Apple OAuth) with email-verification gates, and ran end-to-end Playwright QA across all routes and mobile viewports.",
+        tags: ["Next.js", "Supabase", "Playwright"]
+      },
+      {
+        company: "Quanby Solutions Inc.",
+        logo: "/logos/quanby-logo.png",
+        link: "https://quanbyit.com/",
         role: "Software Developer Intern",
-        period: "Jul 2025 — Dec 2025",
-        desc: "Fullstack development on a Laravel portal and an Angular/Express admin dashboard. Integrated AI chatbots using RAG and Pinecone.",
-        tags: ["Laravel", "Angular", "RAG"]
+        location: "Metro Manila, Philippines · Onsite",
+        period: "Feb 2026 — Mar 2026",
+        desc: "Architected a Government Services Management System (GSMS) with Next.js and NestJS, digitizing critical agency operations and cutting manual processing time. Designed 20+ high-fidelity UI/UX screens and provisioned a production-ready AWS environment for high availability.",
+        tags: ["Next.js", "NestJS", "AWS"]
       },
       {
-        company: "Purrfect Choys",
-        role: "Freelance Mobile Dev",
-        period: "Oct 2024 — Dec 2024",
-        desc: "Digitized store reporting with a React Native app, automating sales summaries and replacing paper workflows.",
-        tags: ["React Native", "Express"]
+        company: "Kippap Learning Corp",
+        logo: "/logos/kippap-logo.jpg",
+        link: "https://www.kippap.com/",
+        role: "Software Developer Intern",
+        location: "Philippines · Remote",
+        period: "Jul 2025 — Nov 2025",
+        desc: "Worked across the full stack of a Laravel student portal and an Angular/Express admin dashboard for an AI chatbot — integrating Gemini API, RAG, and Pinecone vector search. Built the Flutter mobile front-end from Figma and drove QA workflows through agile ceremonies.",
+        tags: ["Laravel", "Angular", "RAG", "Flutter"]
+      }
+    ],
+
+    leadership: [
+      {
+        org: "Google Developer Student Club — PLM",
+        role: "Cloud Development Lead",
+        period: "Aug 2025 — Present",
+        desc: "Design and deliver cloud-focused learning paths with fellow student leaders, equipping members to build and deploy real-world apps on Google Cloud.",
+        tags: ["Google Cloud", "Community", "Mentorship"]
       },
       {
-        company: "Barangay 828",
-        role: "Fullstack Developer",
-        period: "June 2025",
-        desc: "Official community platform with an integrated Gemini AI chatbot for constituent services.",
-        tags: ["Next.js", "Gemini"]
+        org: "AWS Cloud Club — Haribon (PLM)",
+        role: "Cloud & Infrastructure Mentor",
+        period: "Aug 2025 — Present",
+        desc: "Co-led AWS-centric learning pathways to help members architect and deploy scalable, cost-efficient applications on Amazon Web Services.",
+        tags: ["AWS", "Architecture", "Mentorship"]
+      },
+      {
+        org: "Sangguniang Kabataan — Barangay 828",
+        role: "SK Council Secretary",
+        period: "Jan 2023 — Present",
+        desc: "Serve as council secretary for the local youth council, supporting transparent governance, documentation, and community programs.",
+        tags: ["Public Service", "Governance"]
       }
     ]
   };
@@ -246,134 +216,61 @@ const Portfolio = () => {
         {/* Noise Texture Overlay */}
         <div className="fixed inset-0 z-50 pointer-events-none opacity-[0.03] dark:opacity-[0.04] mix-blend-multiply dark:mix-blend-overlay" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}></div>
 
-        {/* Ambient Gradients - Dynamic based on theme */}
-        <div className={`fixed top-[-20%] left-[-10%] w-[600px] h-[600px] rounded-full blur-[120px] pointer-events-none animate-pulse-slow opacity-30 dark:opacity-20 transition-colors duration-1000 ${
-            activeTheme === 'monotone' ? 'bg-zinc-300 dark:bg-zinc-800' :
-            activeTheme === 'forest' ? 'bg-emerald-300 dark:bg-emerald-900' :
-            activeTheme === 'nebula' ? 'bg-violet-300 dark:bg-violet-900' :
-            'bg-cyan-300 dark:bg-cyan-900'
-        }`}></div>
-        <div className={`fixed bottom-[-20%] right-[-10%] w-[500px] h-[500px] rounded-full blur-[120px] pointer-events-none opacity-30 dark:opacity-20 transition-colors duration-1000 ${
-            activeTheme === 'monotone' ? 'bg-zinc-400 dark:bg-zinc-800' :
-            activeTheme === 'forest' ? 'bg-teal-300 dark:bg-teal-900' :
-            activeTheme === 'nebula' ? 'bg-fuchsia-300 dark:bg-fuchsia-900' :
-            'bg-blue-300 dark:bg-blue-900'
-        }`}></div>
+        {/* Ambient Gradients - Ocean */}
+        <div className="fixed top-[-20%] left-[-10%] w-[600px] h-[600px] rounded-full blur-[120px] pointer-events-none animate-pulse-slow opacity-30 dark:opacity-20 bg-cyan-300 dark:bg-cyan-900"></div>
+        <div className="fixed bottom-[-20%] right-[-10%] w-[500px] h-[500px] rounded-full blur-[120px] pointer-events-none opacity-30 dark:opacity-20 bg-blue-300 dark:bg-blue-900"></div>
 
         {/* Navigation */}
         <nav className="fixed top-6 left-0 right-0 z-40 flex justify-center px-4">
-          <div className="bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xl border border-zinc-200 dark:border-white/10 rounded-full px-6 py-3 flex items-center gap-8 shadow-lg dark:shadow-2xl transition-all duration-300">
-            <div className="hidden md:flex items-center gap-6 text-sm font-medium opacity-60">
-              {['Work', 'About', 'Experience', 'Contact'].map((item) => (
-                <button 
-                  key={item}
-                  onClick={() => scrollToSection(item.toLowerCase())}
-                  className={`hover:opacity-100 hover:${currentTheme.textAccent.split(' ')[0]} dark:hover:text-white transition-all relative group`}
-                >
-                  {item}
-                  <span className={`absolute -bottom-1 left-0 w-0 h-px ${currentTheme.bgAccent} transition-all group-hover:w-full`}></span>
-                </button>
-              ))}
-            </div>
-
-            <div className="flex items-center gap-3 pl-4 border-l border-zinc-200 dark:border-zinc-800">
-              {/* Theme Picker */}
-              <div className="relative">
-                <button
-                  onClick={() => setIsThemeMenuOpen(!isThemeMenuOpen)}
-                  className="p-2 rounded-full hover:bg-zinc-100 dark:hover:bg-white/10 transition-colors"
-                  aria-label="Change Theme"
-                >
-                  <Palette size={18} />
-                </button>
-                
-                {isThemeMenuOpen && (
-                    <div className="absolute top-full right-0 mt-2 p-2 bg-white dark:bg-zinc-900 rounded-xl shadow-xl border border-zinc-200 dark:border-white/10 flex flex-col gap-1 min-w-[140px] animate-in fade-in zoom-in-95 duration-200">
-                        {Object.entries(themes).map(([key, themeConfig]) => (
-                            <button
-                                key={key}
-                                onClick={() => { setActiveTheme(key); setIsThemeMenuOpen(false); }}
-                                className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                                    activeTheme === key 
-                                    ? 'bg-zinc-100 dark:bg-white/10' 
-                                    : 'hover:bg-zinc-50 dark:hover:bg-white/5'
-                                }`}
-                            >
-                                <div className={`w-3 h-3 rounded-full ${
-                                    key === 'monotone' ? 'bg-zinc-500' : 
-                                    key === 'forest' ? 'bg-emerald-500' :
-                                    key === 'nebula' ? 'bg-violet-500' : 'bg-cyan-500'
-                                }`}></div>
-                                <span>{themeConfig.name}</span>
-                                {activeTheme === key && <Check size={14} className="ml-auto opacity-50"/>}
-                            </button>
-                        ))}
-                    </div>
-                )}
-              </div>
-
-              <button 
-                onClick={toggleTheme}
-                className="p-2 rounded-full hover:bg-zinc-100 dark:hover:bg-white/10 transition-colors"
-              >
-                {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
-              </button>
-              <a href={data.github} target="_blank" rel="noreferrer" className="hidden sm:block p-2 hover:bg-zinc-100 dark:hover:bg-white/10 rounded-full transition-colors">
-                <Github size={18} />
-              </a>
-              <a href={`mailto:${data.email}`} className={`hidden sm:block p-2 rounded-full hover:opacity-80 transition-opacity ${currentTheme.bgAccent} ${currentTheme.buttonText}`}>
-                <Mail size={18} />
-              </a>
-              {/* Mobile Menu Toggle */}
-              <button className="md:hidden ml-2" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-                {isMenuOpen ? <X size={20}/> : <Menu size={20}/>}
-              </button>
-            </div>
+          <div className="bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xl border border-zinc-200 dark:border-white/10 rounded-full px-4 py-2 flex items-center gap-2 shadow-lg dark:shadow-2xl transition-all duration-300">
+            <a href={data.github} target="_blank" rel="noreferrer" aria-label="GitHub" className="p-2 hover:bg-zinc-100 dark:hover:bg-white/10 rounded-full transition-colors">
+              <Github size={18} />
+            </a>
+            <a href={data.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn" className="p-2 hover:bg-zinc-100 dark:hover:bg-white/10 rounded-full transition-colors">
+              <Linkedin size={18} />
+            </a>
+            <a href={`mailto:${data.email}`} aria-label="Email" className={`p-2 rounded-full hover:opacity-80 transition-opacity ${currentTheme.bgAccent} ${currentTheme.buttonText}`}>
+              <Mail size={18} />
+            </a>
           </div>
         </nav>
 
-        {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="fixed inset-0 bg-white/95 dark:bg-black/95 z-30 flex flex-col items-center justify-center space-y-8 backdrop-blur-lg transition-colors duration-300">
-            {['Work', 'About', 'Experience', 'Contact'].map((item) => (
-              <button
-                key={item}
-                onClick={() => scrollToSection(item.toLowerCase())}
-                className="text-4xl font-bold hover:opacity-50 transition-colors"
-              >
-                {item}
-              </button>
-            ))}
-          </div>
-        )}
-
-        {/* Hero Section */}
+      {/* Hero Section */}
         <header id="about" className="pt-40 pb-20 px-6 md:px-12 max-w-7xl mx-auto min-h-screen flex flex-col justify-center relative">
           <Reveal className="delay-100">
-            <h1 className="text-6xl md:text-9xl font-bold leading-[0.9] tracking-tighter mb-8">
-              FULLSTACK <br />
+            <p className="text-sm uppercase tracking-[0.4em] opacity-60 mb-8">Mc Giberri M. Ginez</p>
+          </Reveal>
+
+          <Reveal className="delay-150">
+            <h1 className="text-4xl md:text-7xl font-bold leading-[1.05] tracking-tight mb-10 max-w-5xl">
+              I build full-stack, AI-powered products that real people{' '}
               <span className={`text-transparent bg-clip-text bg-gradient-to-r ${currentTheme.gradient}`}>
-                AI & CLOUD
-              </span> <br />
-              ENGINEER.
+                actually use.
+              </span>
             </h1>
           </Reveal>
 
           <Reveal className="delay-200">
             <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-8 max-w-4xl">
-              <p className="text-lg md:text-xl opacity-70 leading-relaxed max-w-2xl">
-                I’m an <span className={`font-semibold ${currentTheme.textAccent}`}>experienced Computer Engineering professional</span> focused on software development, cloud-native platforms, and AI-driven solutions. I lead learning pathways, mentor peers, and roll out modern DevOps practices that accelerate delivery in the cloud. My track record spans mission-critical web portals, AI copilots, and full-stack contributions across frontend, backend, and QA—always optimizing for scalable, secure, and human-centered outcomes that solve real problems.
+              <p className="text-base md:text-lg opacity-70 leading-relaxed max-w-2xl">
+                Computer Engineering @ PLM. Software Engineering Consultant for a London startup. AI thesis researcher. Cloud Lead at GDSC &amp; AWS Cloud Club.
               </p>
-              
-              <div className="flex flex-col gap-2 text-sm opacity-50 font-mono">
+
+              <div className="flex flex-col gap-3 text-sm opacity-60 font-mono">
                 <div className="flex items-center gap-2">
                   <Globe size={14} /> {data.location}
                 </div>
-                <div className="flex items-center gap-2">
-                  <Terminal size={14} /> BS CpE @ PLM
-                </div>
-              </div>
-            </div>
+                <a
+                  href="https://plm.edu.ph/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center gap-2 hover:opacity-100 transition-opacity group w-fit"
+                >
+                  <img src="/logos/plm-logo.png" alt="PLM" className="w-6 h-6 rounded-md object-contain" />
+                  <span className="group-hover:underline">BS CpE @ PLM</span>
+                </a>
+          </div>
+        </div>
           </Reveal>
 
           {/* Infinite Marquee */}
@@ -389,9 +286,9 @@ const Portfolio = () => {
               {data.techStack.map((tech, i) => (
                 <span key={i} className="text-6xl md:text-8xl font-bold text-transparent stroke-text-dark dark:stroke-text-light mx-8">
                   {tech}
-                </span>
-              ))}
-            </div>
+              </span>
+            ))}
+          </div>
           </div>
         </header>
 
@@ -404,49 +301,64 @@ const Portfolio = () => {
           </Reveal>
 
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-            {data.projects.map((project, index) => {
-              const isLarge = index === 0 || index === 3;
+            {(data.projects as { title: string; category: string; desc: string; tech: string[]; link: string; image?: string; featured?: boolean }[]).map((project, index) => {
+              const isLarge = Boolean(project.featured);
               const spanClass = isLarge ? 'md:col-span-8' : 'md:col-span-4';
-              
+              const hasImage = Boolean(project.image);
+
               return (
                 <Reveal key={index} className={`${spanClass} group`}>
                   <a href={project.link} target="_blank" rel="noreferrer" className="block h-full">
                     <div className="relative h-[400px] bg-white dark:bg-zinc-900 rounded-3xl overflow-hidden border border-zinc-200 dark:border-white/5 hover:border-zinc-400 dark:hover:border-white/20 transition-all duration-500 shadow-sm hover:shadow-xl dark:shadow-none">
-                      
-                      {/* Abstract Monotone Background */}
-                      <div className={`absolute inset-0 opacity-[0.03] dark:opacity-[0.05] bg-pattern-grid`}></div>
-                      
+
+                      {hasImage ? (
+                        <>
+                          {/* Live screenshot */}
+                          <img
+                            src={project.image}
+                            alt={`${project.title} screenshot`}
+                            loading="lazy"
+                            className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                          />
+                          {/* Legibility scrim */}
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-black/20"></div>
+                        </>
+                      ) : (
+                        /* Abstract Monotone Background */
+                        <div className={`absolute inset-0 opacity-[0.03] dark:opacity-[0.05] bg-pattern-grid`}></div>
+                      )}
+
                       {/* Content */}
-                      <div className="absolute inset-0 p-8 flex flex-col justify-between">
+                      <div className={`absolute inset-0 p-8 flex flex-col justify-between ${hasImage ? 'text-white' : ''}`}>
                         <div className="flex justify-between items-start">
-                          <span className="px-3 py-1 rounded-full bg-zinc-100 dark:bg-white/5 text-xs font-medium opacity-70 border border-zinc-200 dark:border-white/10">
+                          <span className={`px-3 py-1 rounded-full text-xs font-medium border ${hasImage ? 'bg-black/30 border-white/25 text-white backdrop-blur-sm' : 'bg-zinc-100 dark:bg-white/5 opacity-70 border-zinc-200 dark:border-white/10'}`}>
                             {project.category}
                           </span>
                           <div className={`rounded-full p-2 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 ${currentTheme.bgAccent} ${currentTheme.buttonText}`}>
                             <ArrowUpRight size={20} />
-                          </div>
-                        </div>
+          </div>
+        </div>
 
                         <div className="transform group-hover:-translate-y-2 transition-transform duration-500">
-                          <h3 className={`text-3xl font-bold mb-2 group-hover:${currentTheme.textAccent.split(' ')[0]} transition-colors`}>{project.title}</h3>
-                          <p className="opacity-60 text-sm line-clamp-2 mb-4">{project.desc}</p>
+                          <h3 className={`text-3xl font-bold mb-2 transition-colors ${hasImage ? 'drop-shadow' : `group-hover:${currentTheme.textAccent.split(' ')[0]}`}`}>{project.title}</h3>
+                          <p className={`text-sm line-clamp-2 mb-4 ${hasImage ? 'text-white/80' : 'opacity-60'}`}>{project.desc}</p>
                           <div className="flex flex-wrap gap-2">
                             {project.tech.map(t => (
-                              <span key={t} className="text-xs font-mono opacity-50 border border-zinc-200 dark:border-white/10 px-2 py-1 rounded">
+                              <span key={t} className={`text-xs font-mono px-2 py-1 rounded border ${hasImage ? 'text-white/80 border-white/25 bg-black/20' : 'opacity-50 border-zinc-200 dark:border-white/10'}`}>
                                 {t}
                               </span>
                             ))}
                           </div>
                         </div>
-                      </div>
+          </div>
                     </div>
                   </a>
                 </Reveal>
               );
             })}
-          </div>
-        </section>
-
+        </div>
+      </section>
+      
         {/* Experience Table */}
         <section id="experience" className="py-32 px-6 md:px-12 max-w-5xl mx-auto">
           <Reveal>
@@ -462,15 +374,23 @@ const Portfolio = () => {
                   <div className={`absolute left-0 top-0 bottom-0 w-1 scale-y-0 group-hover:scale-y-100 transition-transform duration-300 rounded-l-2xl origin-top ${currentTheme.bgAccent}`}></div>
                   
                   <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
-                    <div>
-                      <h3 className="text-2xl font-bold">{job.role}</h3>
-                      <p className={`text-lg ${currentTheme.textAccent}`}>{job.company}</p>
+                    <div className="flex items-center gap-4">
+                      <a href={job.link} target="_blank" rel="noreferrer" aria-label={job.company} className="shrink-0">
+                        <img src={job.logo} alt={`${job.company} logo`} className="w-12 h-12 rounded-xl object-contain" />
+                      </a>
+                      <div>
+                        <h3 className="text-2xl font-bold">{job.role}</h3>
+                        <a href={job.link} target="_blank" rel="noreferrer" className={`text-lg ${currentTheme.textAccent} hover:underline`}>{job.company}</a>
+                        <div className="flex items-center gap-1.5 text-xs opacity-50 mt-1">
+                          <MapPin size={12} /> {job.location}
+                        </div>
+                      </div>
                     </div>
                     <span className="font-mono text-sm opacity-50 bg-zinc-100 dark:bg-white/5 px-3 py-1 rounded-full w-fit">
                       {job.period}
                     </span>
-                  </div>
-                  
+                </div>
+
                   <p className="opacity-70 leading-relaxed max-w-3xl mb-4">
                     {job.desc}
                   </p>
@@ -478,6 +398,38 @@ const Portfolio = () => {
                   <div className="flex gap-3">
                     {job.tags.map(tag => (
                       <span key={tag} className="text-xs font-bold uppercase tracking-wider opacity-50">
+                        {tag}
+                      </span>
+            ))}
+          </div>
+                </div>
+              </Reveal>
+            ))}
+        </div>
+      </section>
+
+        {/* Leadership & Community */}
+        <section id="leadership" className="py-32 px-6 md:px-12 max-w-5xl mx-auto">
+          <Reveal>
+            <h2 className="text-sm font-mono opacity-50 mb-10 uppercase tracking-widest border-b border-zinc-200 dark:border-white/10 pb-4">
+              Leadership & Community
+            </h2>
+          </Reveal>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {data.leadership.map((item, i) => (
+              <Reveal key={i} className="group h-full">
+                <div className="relative h-full p-6 md:p-7 bg-white dark:bg-zinc-900/30 border border-zinc-200 dark:border-white/5 rounded-2xl hover:bg-zinc-50 dark:hover:bg-zinc-900/50 transition-all duration-300 flex flex-col">
+                  <div className={`absolute left-0 top-0 bottom-0 w-1 scale-y-0 group-hover:scale-y-100 transition-transform duration-300 rounded-l-2xl origin-top ${currentTheme.bgAccent}`}></div>
+
+                  <span className="font-mono text-xs opacity-50 mb-3">{item.period}</span>
+                  <h3 className="text-lg font-bold leading-snug">{item.role}</h3>
+                  <p className={`text-sm mb-4 ${currentTheme.textAccent}`}>{item.org}</p>
+                  <p className="opacity-70 text-sm leading-relaxed mb-5 flex-1">{item.desc}</p>
+
+                  <div className="flex flex-wrap gap-x-3 gap-y-1">
+                    {item.tags.map(tag => (
+                      <span key={tag} className="text-[10px] font-bold uppercase tracking-wider opacity-50">
                         {tag}
                       </span>
                     ))}
@@ -488,77 +440,18 @@ const Portfolio = () => {
           </div>
         </section>
 
-        {/* Tech Stack / Skills (Visual Grid) */}
-        <section className="py-20 px-6 md:px-12 max-w-7xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <Reveal className="col-span-2 md:col-span-2 bg-zinc-100 dark:bg-zinc-900 rounded-3xl p-8 border border-zinc-200 dark:border-white/5 min-h-[240px] flex flex-col justify-between group hover:border-zinc-400 dark:hover:border-white/30 transition-colors">
-              <Cloud className={`${currentTheme.textAccent} mb-4`} size={40} />
-              <div>
-                <h3 className="text-2xl font-bold mb-2">Cloud Native</h3>
-                <p className="opacity-60 text-sm">AWS Certified Mentor & GCP Specialist. Experienced in Docker, Vercel, and Serverless architectures.</p>
-              </div>
-            </Reveal>
-            
-            <Reveal className="bg-white dark:bg-zinc-900 rounded-3xl p-8 border border-zinc-200 dark:border-white/5 flex flex-col justify-between group hover:border-zinc-400 dark:hover:border-white/30 transition-colors shadow-sm dark:shadow-none">
-              <Cpu className={`${currentTheme.textAccent} mb-4`} size={32} />
-              <h3 className="text-xl font-bold">AI & VLMs</h3>
-              <p className="text-xs opacity-60">Gemini, OpenAI, RAG</p>
-            </Reveal>
-
-            <Reveal className="bg-white dark:bg-zinc-900 rounded-3xl p-8 border border-zinc-200 dark:border-white/5 flex flex-col justify-between group hover:border-zinc-400 dark:hover:border-white/30 transition-colors shadow-sm dark:shadow-none">
-              <Smartphone className={`${currentTheme.textAccent} mb-4`} size={32} />
-              <h3 className="text-xl font-bold">Mobile</h3>
-              <p className="text-xs opacity-60">Flutter, React Native</p>
-            </Reveal>
-            
-            <Reveal className="col-span-2 bg-zinc-50 dark:bg-zinc-900/50 rounded-3xl p-8 border border-zinc-200 dark:border-white/5 flex items-center justify-center text-center">
-              <div>
-                <h3 className="text-3xl font-bold mb-2">15+</h3>
-                <p className="opacity-50">Projects Delivered</p>
-              </div>
-            </Reveal>
-
-            <Reveal className={`col-span-2 md:col-span-2 bg-zinc-900 dark:bg-white rounded-3xl p-8 border border-zinc-800 dark:border-zinc-200 flex flex-col justify-between text-white dark:text-black ${currentTheme.bgAccent} ${currentTheme.buttonText}`}>
-              <div className="flex items-center gap-4 mb-6">
-                <Code2 size={32} />
-                <h3 className="text-2xl font-bold">Web Stack</h3>
-              </div>
-              <div className="flex flex-wrap gap-2">
-                  {['Next.js 14', 'TypeScript', 'Tailwind', 'Supabase', 'Laravel', 'PostgreSQL'].map(t => (
-                    <span key={t} className="px-3 py-1.5 rounded-lg bg-white/10 dark:bg-black/10 text-sm border border-white/20 dark:border-black/10">
-                      {t}
-                    </span>
-                  ))}
-              </div>
-            </Reveal>
-          </div>
-        </section>
-
         {/* Footer / Contact */}
         <footer id="contact" className="py-32 px-6 md:px-12 max-w-7xl mx-auto text-center relative overflow-hidden">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-zinc-200/50 dark:bg-zinc-800/20 rounded-full blur-[100px] pointer-events-none"></div>
           
           <Reveal>
-            <h2 className="text-5xl md:text-8xl font-bold tracking-tighter mb-12">
-              LET&apos;S BUILD <br /> 
-              <span className="opacity-40">THE IMPOSSIBLE.</span>
-            </h2>
-            
-            <a 
-              href={`mailto:${data.email}`}
-              className={`inline-flex items-center gap-3 px-8 py-4 rounded-full text-lg font-bold hover:scale-105 transition-all shadow-xl ${currentTheme.bgAccent} ${currentTheme.buttonText}`}
-            >
-              <Mail size={20} />
-              Start a Conversation
-            </a>
-
-            <div className="mt-24 flex flex-col md:flex-row justify-between items-center gap-6 opacity-50 text-sm font-mono">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-6 opacity-50 text-sm font-mono">
               <p>© 2025 Mc Giberri M. Ginez</p>
-              <div className="flex gap-6">
+            <div className="flex gap-6">
                 <a href={data.github} className="hover:text-black dark:hover:text-white transition-colors">GITHUB</a>
                 <a href={data.linkedin} className="hover:text-black dark:hover:text-white transition-colors">LINKEDIN</a>
-              </div>
             </div>
+          </div>
           </Reveal>
         </footer>
 
@@ -588,9 +481,9 @@ const Portfolio = () => {
             background-size: 24px 24px;
           }
         `}</style>
+        </div>
       </div>
-    </div>
   );
 };
-
+   
 export default Portfolio;
