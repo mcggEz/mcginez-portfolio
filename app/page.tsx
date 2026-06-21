@@ -171,7 +171,7 @@ const Portfolio = () => {
     projects: [
       {
         title: "MicroView AI",
-        category: "Thesis • AI & IoT",
+        category: "Web • HealthTech",
         desc: "Low-cost automated microscopy urinalysis system. An Arduino stage and Raspberry Pi client feed a cascading cloud pipeline — YOLOv11 for coarse detection and Gemini 2.5 Pro (VLM) for explainable fine-grained analysis, surfaced in a Next.js dashboard.",
         tech: ["Next.js", "Flask", "YOLOv11", "Gemini 2.5 Pro", "Raspberry Pi"],
         link: "https://microview-ai.vercel.app/",
