@@ -530,9 +530,17 @@ const Portfolio = () => {
           </Reveal>
 
           <Reveal className="delay-150">
-            <h1 className="text-4xl md:text-7xl font-bold leading-[1.05] tracking-tight mb-10 max-w-5xl">
-              I build full-stack, AI-powered products that real people{' '}
-              <span className={`text-transparent bg-clip-text bg-gradient-to-r ${currentTheme.gradient}`}>
+            <h1 className="text-4xl md:text-7xl font-light leading-[1.15] tracking-tight mb-10 max-w-5xl">
+              I build{' '}
+              <span className="font-serif italic text-cyan-600 dark:text-cyan-400 font-normal">
+                full-stack
+              </span>
+              ,{' '}
+              <span className="font-mono text-[0.85em] font-normal tracking-tighter opacity-90 px-1.5 py-0.5 rounded-lg bg-slate-100 dark:bg-white/5 border border-slate-200/50 dark:border-white/10">
+                AI-powered
+              </span>{' '}
+              products that real people{' '}
+              <span className={`font-serif italic text-transparent bg-clip-text bg-gradient-to-r ${currentTheme.gradient} font-normal`}>
                 actually use.
               </span>
             </h1>
