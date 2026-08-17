@@ -226,7 +226,7 @@ const Portfolio = () => {
         desc: "Clinical information system for a Special Education program — consolidating patient profiles, developmental assessments, daily activity logs, and consent/waiver management across four roles (clients, psychologists, psychometricians, admins), with Supabase row-level security.",
         tech: ["React", "Express", "Supabase", "PostgreSQL"],
         link: "https://cymon-clinic.vercel.app/",
-        image: "/logos/cymon.png",
+        image: "/shots/cymon.png",
         featured: true,
       }
     ],
