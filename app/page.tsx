@@ -238,7 +238,7 @@ const Portfolio = () => {
         link: "https://www.godelianlimited.com/",
         role: "Software Engineering Consultant",
         location: "London, United Kingdom · Remote",
-        period: "Mar 2026 — Apr 2026",
+        period: "March 2026 - May 2026",
         desc: "Built ChainReaction, a full-stack food-rating platform spanning 67+ menu items across 9 restaurant chains — shipping 145 features across 14 domains and reaching 100% feature completion before MVP launch. Implemented multi-provider auth (Email, Google, Apple OAuth) with email-verification gates, and ran end-to-end Playwright QA across all routes and mobile viewports.",
         tags: ["Next.js", "Supabase", "Playwright"]
       },
@@ -303,16 +303,16 @@ const Portfolio = () => {
     resume: {
       phone: "+63 926 616 3855",
       skills: [
-        { label: "Web", items: ["HTML", "CSS", "JavaScript", "TypeScript", "Python"] },
-        { label: "Frameworks & Data", items: ["React", "Next.js", "Node.js", "Laravel", "Angular", "NestJS", "Express.js", "Supabase", "Firebase", "PostgreSQL", "MongoDB", "TailwindCSS"] },
-        { label: "APIs", items: ["REST", "WebSockets", "GraphQL", "RPC"] },
-        { label: "Mobile", items: ["Flutter", "React Native", "NativeWind", "Expo"] },
-        { label: "Desktop", items: ["Electron.js"] },
-        { label: "Automation", items: ["Puppeteer", "Playwright", "n8n", "Google Apps Script"] },
-        { label: "Cloud & DevOps", items: ["AWS (EC2, S3, RDS, Lambda, IAM)", "Google Cloud", "Vercel", "Docker", "GitHub Actions"] },
-        { label: "AI / ML", items: ["OpenAI API", "Gemini API", "RAG", "Vector Databases", "Embeddings & Semantic Search", "Prompt Engineering", "Multi-modal AI (VLMs)"] },
-        { label: "IoT / Embedded", items: ["Arduino", "Raspberry Pi", "ESP32"] },
-        { label: "Design", items: ["Figma", "Figma Make"] }
+        { label: "Programming Languages", items: ["JavaScript", "TypeScript", "Python", "PHP", "SQL", "HTML 5", "CSS"] },
+        { label: "Frontend & Full-Stack", items: ["React", "Next.js", "Vite", "Tailwind CSS"] },
+        { label: "Backend", items: ["Express.js", "NestJS", "Django", "Laravel"] },
+        { label: "APIs", items: ["REST APIs", "WebSockets", "GraphQL", "RPC"] },
+        { label: "Databases", items: ["PostgreSQL", "Supabase", "SQLite", "Vector Databases", "MySQL"] },
+        { label: "Testing & QA", items: ["Playwright", "End-to-End Testing", "Functional Testing"] },
+        { label: "Mobile Development", items: ["Flutter", "React Native", "Expo"] },
+        { label: "Cloud & DevOps", items: ["AWS (EC2, S3, RDS, IAM)", "Google Cloud Platform", "Vercel", "Docker", "GitHub Actions"] },
+        { label: "AI / Machine Learning", items: ["OpenAI API", "Google Gemini API", "Retrieval-Augmented Generation (RAG)", "Vector Databases", "Embeddings", "Semantic Search", "Prompt Engineering", "Vision-Language Models (VLMs)"] },
+        { label: "Tools & Practices", items: ["Git", "GitHub", "Agile/Scrum", "SDLC", "Technical Documentation", "Gemini", "Codex", "Claude", "AI Agents"] }
       ],
       education: [
         { school: "Pamantasan ng Lungsod ng Maynila", detail: "BS Computer Engineering — Manila, Philippines" },
