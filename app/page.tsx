@@ -405,9 +405,9 @@ const Portfolio = () => {
                   <h3 className="text-xs font-bold uppercase tracking-widest text-zinc-400 border-b border-zinc-200 pb-2 mb-3">Technical Skills</h3>
                   <div className="space-y-2.5">
                     {data.resume.skills.map((group) => (
-                      <div key={group.label} className="flex flex-col sm:flex-row sm:gap-3">
-                        <span className="shrink-0 sm:w-36 text-sm font-semibold text-zinc-700">{group.label}</span>
-                        <div className="flex flex-wrap gap-1.5">
+                      <div key={group.label} className="flex flex-col sm:flex-row sm:items-start sm:gap-3">
+                        <span className="shrink-0 sm:w-48 text-sm font-semibold text-zinc-700 pt-0.5">{group.label}</span>
+                        <div className="flex flex-wrap items-center gap-1.5">
                           {group.items.map((item) => (
                             <span key={item} className="text-xs bg-zinc-100 border border-zinc-200 text-zinc-700 px-2 py-0.5 rounded">{item}</span>
                           ))}
